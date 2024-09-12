@@ -51,6 +51,23 @@ async function getVotes() {
   }
 }
 
+async function hasVoted(id) {
+  try {
+    let user = await kv.get(`user${id}`);
+    // if no user exists in database
+    if (user === null) {
+      // set a key to unique str + fid
+      kv.set(`user${id}`, true);
+      return false;
+    } else {
+      // we found a user, they can't vote again
+      return true;
+    }
+  } catch (error) {
+    console.error('KV connection failed checking for user:', error);
+  }
+}
+
 // *************** Initial Welcome Frame ***************
 app.frame('/', async (c) => {
   // This is the context from the previous frame
@@ -108,9 +125,13 @@ app.frame('/', async (c) => {
 app.frame('/vote', async (c) => {
   const { status, buttonValue, frameData } = c;
 
+  // check for user fid in database
+  const voted = await hasVoted(frameData?.fid);
+  console.log(voted);
+
   // if someone already voted, redirect to separate frame + don't count there vote
   // hard coded for dev id - temp
-  if (frameData?.fid === 1) {
+  if (voted) {
     return c.res({
       image: (
         <div
@@ -164,7 +185,7 @@ app.frame('/vote', async (c) => {
         }}
       >
         <p>You voted... {buttonValue}</p>
-        <p>Great choice</p>
+        <p>Pretty okayish kinda choice</p>
       </div>
     ),
     intents: [
