@@ -6,13 +6,6 @@ import { handle } from 'frog/vercel';
 import { createClient } from '@vercel/kv';
 import { config } from '../config.js';
 
-// connect to vercel kv database
-// const kv = createClient({
-//   url: import.meta.env.VITE_KV_REST_API_URL,
-//   token: import.meta.env.VITE_KV_REST_API_TOKEN,
-// });
-// console.log('config works?', config.RestApiUrl);
-
 const kv = createClient({
   url: config.RestApiUrl,
   token: config.token,
@@ -26,7 +19,6 @@ const kv = createClient({
 export const app = new Frog({
   assetsPath: '/',
   basePath: '/api',
-  // frame path - Image url issue?
   browserLocation: '/:path',
   title: 'Kramer Frame',
   initialState: {
@@ -207,9 +199,8 @@ app.frame('/vote', async (c) => {
 app.frame('/results', async (c) => {
   const { status } = c;
 
-  // Query to the database upon hitting frame since frames == stateless
+  // Query to the database upon hitting frame since frames === stateless
   const votes = await getVotes();
-  console.log(votes);
 
   return c.res({
     image: (
