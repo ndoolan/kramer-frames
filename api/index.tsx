@@ -6,6 +6,9 @@ import { handle } from 'frog/vercel';
 import { createClient } from '@vercel/kv';
 import { config } from '../config.js';
 
+// stored at Vercel
+const sealURL = 'https://farcast-frame.vercel.app/Seal.svg';
+
 const kv = createClient({
   url: config.RestApiUrl,
   token: config.token,
@@ -91,6 +94,7 @@ app.frame('/', async (c) => {
           justifyContent: 'center',
           textAlign: 'center',
           width: '100%',
+          gap: '2rem',
         }}
       >
         <div
@@ -103,10 +107,13 @@ app.frame('/', async (c) => {
             marginTop: 30,
             padding: '0 120px',
             whiteSpace: 'pre-wrap',
+            display: 'flex',
+            flexDirection: 'column',
           }}
         >
           There will be over 10,000 Kramer predictions before 9/29 at midnight
         </div>
+        <img src={sealURL} height="100rem" width="100rem" alt="Seal Logo" />
       </div>
     ),
     intents: [
