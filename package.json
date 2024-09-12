@@ -9,10 +9,12 @@
   },
   "dependencies": {
     "@vercel/kv": "^2.0.0",
+    "dotenv-flow": "^4.1.0",
     "frog": "latest",
     "hono": "^4"
   },
   "devDependencies": {
+    "@types/dotenv-flow": "^3.3.3",
     "tsx": "^4.7.1",
     "typescript": "^5.3.3",
     "vercel": "^32.4.1"

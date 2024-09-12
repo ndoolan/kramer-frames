@@ -4,17 +4,24 @@ import { serveStatic } from 'frog/serve-static';
 // import { neynar } from 'frog/hubs'
 import { handle } from 'frog/vercel';
 import { createClient } from '@vercel/kv';
+import { config } from '../config.js';
 
 // connect to vercel kv database
+// const kv = createClient({
+//   url: import.meta.env.VITE_KV_REST_API_URL,
+//   token: import.meta.env.VITE_KV_REST_API_TOKEN,
+// });
+// console.log('config works?', config.RestApiUrl);
+
 const kv = createClient({
-  url: import.meta.env.VITE_KV_REST_API_URL,
-  token: import.meta.env.VITE_KV_REST_API_TOKEN,
+  url: config.RestApiUrl,
+  token: config.token,
 });
 
 // Uncomment to use Edge Runtime.
-export const config = {
-  runtime: 'edge',
-};
+// export const config = {
+//   runtime: 'edge',
+// };
 
 export const app = new Frog({
   assetsPath: '/',
