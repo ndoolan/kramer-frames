@@ -1,4 +1,4 @@
-import { Button, Frog } from 'frog';
+import { Button, Frog, FrameContext } from 'frog';
 import { devtools } from 'frog/dev';
 import { serveStatic } from 'frog/serve-static';
 // import { neynar } from 'frog/hubs'
@@ -106,10 +106,42 @@ app.frame('/', async (c) => {
 
 // *************** Voting Yes Frame ***************
 app.frame('/vote', async (c) => {
-  const { status, buttonValue } = c;
-  console.log('button val', buttonValue);
+  const { status, buttonValue, frameData } = c;
+
+  // if someone already voted, redirect to separate frame + don't count there vote
+  // hard coded for dev id - temp
+  if (frameData?.fid === 1) {
+    return c.res({
+      image: (
+        <div
+          style={{
+            alignItems: 'center',
+            background:
+              status === 'response'
+                ? 'linear-gradient(to right, #432889, #17101F)'
+                : 'black',
+            backgroundSize: '100% 100%',
+            display: 'flex',
+            flexDirection: 'column',
+            flexWrap: 'nowrap',
+            height: '100%',
+            justifyContent: 'center',
+            textAlign: 'center',
+            width: '100%',
+            color: 'white',
+          }}
+        >
+          <p>Sneaky, sneaky - you already voted friend</p>
+        </div>
+      ),
+      intents: [
+        <Button action="/results">Results</Button>,
+        status === 'response' && <Button.Reset>Reset</Button.Reset>,
+      ],
+    });
+  }
+
   await handleVote(buttonValue);
-  console.log('success');
 
   return c.res({
     image: (
