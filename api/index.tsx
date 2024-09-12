@@ -1,4 +1,4 @@
-import { Button, Frog, FrameContext } from 'frog';
+import { Button, Frog } from 'frog';
 import { devtools } from 'frog/dev';
 import { serveStatic } from 'frog/serve-static';
 // import { neynar } from 'frog/hubs'
@@ -19,6 +19,7 @@ export const config = {
 export const app = new Frog({
   assetsPath: '/',
   basePath: '/api',
+  // frame path - Image url issue?
   browserLocation: '/:path',
   title: 'Kramer Frame',
   initialState: {
