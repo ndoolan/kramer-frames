@@ -95,7 +95,7 @@ app.frame('/', async (c) => {
       >
         <div
           style={{
-            color: 'white',
+            color: '#a5faef',
             fontSize: 50,
             fontStyle: 'normal',
             letterSpacing: '-0.025em',
@@ -137,10 +137,7 @@ app.frame('/vote', async (c) => {
         <div
           style={{
             alignItems: 'center',
-            background:
-              status === 'response'
-                ? 'linear-gradient(to right, #432889, #17101F)'
-                : 'black',
+            background: 'black',
             backgroundSize: '100% 100%',
             display: 'flex',
             flexDirection: 'column',
@@ -149,7 +146,8 @@ app.frame('/vote', async (c) => {
             justifyContent: 'center',
             textAlign: 'center',
             width: '100%',
-            color: 'white',
+            color: '#a5faef',
+            fontSize: '2.5em',
           }}
         >
           <p>Sneaky, sneaky - you already voted friend</p>
@@ -169,10 +167,7 @@ app.frame('/vote', async (c) => {
       <div
         style={{
           alignItems: 'center',
-          background:
-            status === 'response'
-              ? 'linear-gradient(to right, #432889, #17101F)'
-              : 'black',
+          background: 'black',
           backgroundSize: '100% 100%',
           display: 'flex',
           flexDirection: 'column',
@@ -181,7 +176,7 @@ app.frame('/vote', async (c) => {
           justifyContent: 'center',
           textAlign: 'center',
           width: '100%',
-          color: 'white',
+          color: '#a5faef',
         }}
       >
         <p>You voted... {buttonValue}</p>
@@ -207,10 +202,7 @@ app.frame('/results', async (c) => {
       <div
         style={{
           alignItems: 'center',
-          background:
-            status === 'response'
-              ? 'linear-gradient(to right, #432889, #17101F)'
-              : 'black',
+          background: 'black',
           backgroundSize: '100% 100%',
           display: 'flex',
           flexDirection: 'column',
@@ -219,12 +211,15 @@ app.frame('/results', async (c) => {
           justifyContent: 'center',
           textAlign: 'center',
           width: '100%',
-          color: 'white',
+          color: '#a5faef',
+          fontSize: '2.5em',
         }}
       >
-        All Results Here
-        <p>Yes: {votes?.yes}</p>
-        <p>No: {votes?.no}</p>
+        Is it... Results O'Clock?
+        <div style={{ display: 'flex', flexDirection: 'row', gap: '.75em' }}>
+          <p>Yes: {votes?.yes}</p>
+          <p>No: {votes?.no}</p>
+        </div>
       </div>
     ),
     intents: [status === 'response' && <Button.Reset>Reset</Button.Reset>],
